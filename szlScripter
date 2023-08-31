@@ -1,0 +1,8 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "szlScripter", HidePremium = false, SaveConfig = true, ConfigFolder = "teodorotm"})
+
+local Tab = Window:MakeTab({
+	Name = "Start",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
