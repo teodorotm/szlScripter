@@ -69,20 +69,22 @@ JogadorTab:AddToggle({
 
 
 
-local FarmTab = Window:MakeTab({
-	Name = "Player Geral",
+local MineradorDeBitcoinTab = Window:MakeTab({
+	Name = "Bitcoin Miner Beta",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
-local Farm = FarmTab:AddSection({
-	Name = "AutoFarm Player"
+local Money = MineradorDeBitcoinTab:AddSection({
+	Name = "Dinheiro"
 })
-Farm:AddToggle({
-	Name = "Auto Clicker",
-	Default = false,
-	Callback = function(Value)
-
-	end    
+Money:AddButton({
+	Name = "Transferir Bitcoin",
+	Callback = function()
+		local args = {
+    		[1] = true
+		}
+		game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+  	end    
 })
 
 
