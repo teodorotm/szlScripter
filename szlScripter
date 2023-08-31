@@ -17,7 +17,7 @@ function alterarVelocidade()
 end
 function alterarPulo()
     if _G.Pulo == false then
-        humanoid.JumpPower = 16
+        humanoid.JumpPower = 50
     else
         humanoid.JumpPower = 200
     end
