@@ -1,8 +1,70 @@
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 local Window = OrionLib:MakeWindow({Name = "szlScripter", HidePremium = false, SaveConfig = true, ConfigFolder = "teodorotm"})
 
-local Tab = Window:MakeTab({
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+_G.Velocidade = false
+_G.Pulo = false
+
+function alterarVelocidade()
+    if _G.Velocidade == false then
+        humanoid.WalkSpeed = 16
+    else
+        humanoid.WalkSpeed = 200
+    end
+end
+function alterarPulo()
+    if _G.Pulo == false then
+        humanoid.JumpPower = 16
+    else
+        humanoid.JumpPower = 200
+    end
+end
+
+OrionLib:MakeNotification({
+	Name = "Script Iniciado",
+	Content = "By: teodorotm",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+local StartTab = Window:MakeTab({
 	Name = "Start",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
+
+local Section = StartTab:AddSection({
+	Name = "Creditos"
+})
+Section:AddParagraph("Criador","\nteodorotom \nBRKmods")
+
+local JogadorTab = Window:MakeTab({
+	Name = "Player Geral",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Section = JogadorTab:AddSection({
+	Name = "Moviemento do Player"
+})
+
+JogadorTab:AddToggle({
+	Name = "Velocidade 200x",
+	Default = false,
+	Callback = function(Value)
+        _G.Velocidade = Value
+        alterarVelocidade()
+	end    
+})
+JogadorTab:AddToggle({
+	Name = "Pulo 200x",
+	Default = false,
+	Callback = function(Value)
+        _G.Pulo = Value
+        alterarPulo()
+	end    
+})
+
+
