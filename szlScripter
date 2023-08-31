@@ -46,8 +46,8 @@ local JogadorTab = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
-local Section = JogadorTab:AddSection({
-	Name = "Moviemento do Player"
+local Movimento = JogadorTab:AddSection({
+	Name = "Movimento do Player"
 })
 
 JogadorTab:AddToggle({
@@ -66,5 +66,25 @@ JogadorTab:AddToggle({
         alterarPulo()
 	end    
 })
+
+
+
+local FarmTab = Window:MakeTab({
+	Name = "Player Geral",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+local Farm = FarmTab:AddSection({
+	Name = "AutoFarm Player"
+})
+Farm:AddToggle({
+	Name = "Auto Clicker",
+	Default = false,
+	Callback = function(Value)
+
+	end    
+})
+
+
 
 
