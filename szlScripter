@@ -158,10 +158,6 @@ Money:AddToggle({
 					[1] = true
 				}
 				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
-				local args = {
-					[1] = false
-				}
-				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
 				wait(1)
 			elseif _G.AutoBitcoin == false then
 				local args = {
