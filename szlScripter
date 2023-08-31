@@ -12,6 +12,7 @@ _G.noClip = false
 _G.Caixas = false
 _G.Shop = false
 _G.DantShop = false
+_G.S = false
 
 function AbrirCaixa()
     if _G.Caixas == true then
@@ -147,7 +148,7 @@ Money:AddButton({
 })
 
 Money:AddToggle({
-	Name = "Auto Transferencia",
+	Name = "Auto Transferencia Bitcoin",
 	Default = false,
 	Callback = function(Value)
 		_G.AutoBitcoin = Value
@@ -165,6 +166,27 @@ Money:AddToggle({
 			elseif _G.AutoBitcoin == false then
 				local args = {
 					[1] = false
+				}
+				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+			end
+		end
+	end    
+})
+Money:AddToggle({
+	Name = "Auto Transferencia S",
+	Default = false,
+	Callback = function(Value)
+		_G.S = Value
+		while _G.S do
+			if _G.S == true then
+				local args = {
+					[1] = false
+				}
+				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+				wait(1)
+			elseif _G.S == false then
+				local args = {
+					[1] = true
 				}
 				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
 			end
