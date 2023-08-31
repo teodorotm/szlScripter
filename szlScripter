@@ -147,7 +147,7 @@ Money:AddButton({
 })
 
 Money:AddToggle({
-	Name = "Auto Transferencia Bitcoin",
+	Name = "Auto Transferencia",
 	Default = false,
 	Callback = function(Value)
 		_G.AutoBitcoin = Value
@@ -155,6 +155,10 @@ Money:AddToggle({
 			if _G.AutoBitcoin == true then
 				local args = {
 					[1] = true
+				}
+				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+				local args = {
+					[1] = false
 				}
 				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
 				wait(1)
