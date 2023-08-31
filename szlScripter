@@ -7,6 +7,25 @@ local humanoid = character:WaitForChild("Humanoid")
 
 _G.Velocidade = false
 _G.Pulo = false
+_G.AutoBitcoin = false
+_G.noClip = false
+_G.Caixas = false
+_G.Shop = false
+_G.DantShop = false
+
+function AbrirCaixa()
+    if _G.Caixas == true then
+		local A_1 = true
+		local Event = game:GetService("ReplicatedStorage").Events.ClmFrCrt
+		Event:FireServer(A_1)
+
+		local A_1 = false
+		local Event = game:GetService("ReplicatedStorage").Events.ClmFrCrt
+		Event:FireServer(A_1)
+	end
+
+end
+
 
 function alterarVelocidade()
     if _G.Velocidade == false then
@@ -22,6 +41,38 @@ function alterarPulo()
         humanoid.JumpPower = 200
     end
 end
+function noClip()
+    if _G.noClip == false then
+	-- game:GetService("RunService").Stepped:Connect(function()
+	--     for _, player in pairs(game.Players:GetPlayers()) do
+	--         if player ~= game.Players.LocalPlayer then
+	--             player.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+	--         end
+	--     end
+	-- end)
+    else
+		game:GetService("RunService").Stepped:Connect(function()
+			for _, player in pairs(game.Players:GetPlayers()) do
+				if player ~= game.Players.LocalPlayer then
+					player.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+				end
+			end
+		end)
+    end
+end
+
+
+humanoid.Died:Connect(function()
+    wait(5)  -- Aguarde para garantir que o jogador ressurja
+    character = player.Character or player.CharacterAdded:Wait()
+    humanoid = character:WaitForChild("Humanoid")
+	if _G.Pulo == true then
+		_G.Pulo = false
+	elseif _G.Velocidade == true then
+		_G.Velocidade = false
+	end
+end)
+
 
 OrionLib:MakeNotification({
 	Name = "Script Iniciado",
@@ -66,6 +117,14 @@ JogadorTab:AddToggle({
         alterarPulo()
 	end    
 })
+JogadorTab:AddToggle({
+	Name = "noClip",
+	Default = false,
+	Callback = function(Value)
+        _G.noClip = Value
+        noClip()
+	end    
+})
 
 
 
@@ -87,6 +146,40 @@ Money:AddButton({
   	end    
 })
 
+Money:AddToggle({
+	Name = "Auto Transferencia Bitcoin",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoBitcoin = Value
+		while _G.AutoBitcoin do
+			if _G.AutoBitcoin == true then
+				local args = {
+					[1] = true
+				}
+				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+				wait(1)
+			elseif _G.AutoBitcoin == false then
+				local args = {
+					[1] = false
+				}
+				game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(unpack(args))
+			end
+		end
+	end    
+})
+
+local Caixas = MineradorDeBitcoinTab:AddSection({
+	Name = "Caixas"
+})
+Caixas:AddToggle({
+	Name = "Auto Caixa",
+	Default = false,
+	Callback = function(Value)
+        _G.Caixas = Value
+        AbrirCaixa()
+	end    
+})
 
 
 
+OrionLib:Init()
